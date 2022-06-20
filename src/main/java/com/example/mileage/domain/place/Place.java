@@ -1,13 +1,14 @@
 package com.example.mileage.domain.place;
 
 
+import com.example.mileage.domain.review.Review;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -16,5 +17,11 @@ import javax.persistence.Table;
 public class Place {
 
     @Id
+    @Column(name = "place_id")
+    private String id;
+
+    public Place(String id) {
+        this.id = id;
+    }
 
 }

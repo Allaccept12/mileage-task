@@ -1,6 +1,8 @@
 package com.example.mileage.domain.user;
 
+import com.example.mileage.domain.point.Point;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,19 +19,14 @@ public class User {
     private String id;
 
     @Column(length = 20)
-    private String userName;
+    private String nickName;
 
-    @Embedded
-    @Column(name = "total_point",nullable = false)
-    private Point point;
 
-    public User(String id, String userName) {
+    @Builder
+    public User(String id, String nickName) {
         this.id = id;
-        this.userName = userName;
+        this.nickName = nickName;
     }
 
-    @PrePersist
-    private void initPoint() {
-        this.point = this.point != null ? this.point : new Point(0);
-    }
+
 }

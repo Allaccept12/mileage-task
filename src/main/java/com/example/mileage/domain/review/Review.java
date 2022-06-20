@@ -2,7 +2,6 @@ package com.example.mileage.domain.review;
 
 
 import com.example.mileage.domain.place.Place;
-import com.example.mileage.domain.reviewimage.ReviewImage;
 import com.example.mileage.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -10,8 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Getter
@@ -21,10 +19,13 @@ public class Review {
 
     @Id
     @Column(name = "review_id")
-    private String reviewId;
+    private String id;
 
-    @Column(nullable = false,length = 500)
+    @Column(columnDefinition = "TEXT")
     private String content;
+
+    @Enumerated(EnumType.STRING)
+    private ReviewType reviewType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
@@ -34,21 +35,33 @@ public class Review {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "review",orphanRemoval = true,cascade = CascadeType.REMOVE)
-    private List<ReviewImage> reviewImages = new ArrayList<>();
+    @ElementCollection
+    @CollectionTable(name = "IMAGES", joinColumns = @JoinColumn(name = "review_id"))
+    private List<String> imageIds = new ArrayList<>();
 
     @Builder
-    public Review(String reviewId, String content, Place place, User user) {
-        this.reviewId = reviewId;
+    public Review(String id, String content, List<String> imageIds, Place place, User user) {
+        this.id = id;
         this.content = content;
+        this.imageIds = imageIds;
         this.place = place;
         this.user = user;
     }
 
     @PrePersist
-    private void initContent() {
-        this.content = this.content != null ? this.content : "";
+    private void initReviewType() {
+        this.reviewType = ReviewType.NORMAL;
     }
+
+    public void setReviewTypeForFirst() {
+        this.reviewType = ReviewType.FIRST;
+    }
+
+    public void setContentAndImageIds(String content, List<String> imageIds) {
+        this.content = content;
+        this.imageIds = imageIds;
+    }
+
 
 
 }
