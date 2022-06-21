@@ -13,8 +13,8 @@ public class UserRequestDto {
 
     private String userId;
 
-    @Size(min = 1, max = 20, message = "닉네임은 20자까지 입력할 수 있습니다.")
-    @Pattern(regexp = "[\\s_a-zA-Z0-9가-힣]",message = "특수문자는 사용이 불가능 합니다.")
+    @Size(min = 1, max = 20, message = "닉네임은 1글자 이상 20글자 이하만 가능합니다.")
+    @Pattern(regexp = "^([a-zA-Z0-9가-힣\\s_]*)$",message = "특수문자는 사용이 불가능 합니다.")
     private String nickName;
 
 

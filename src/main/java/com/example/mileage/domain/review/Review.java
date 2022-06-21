@@ -1,6 +1,7 @@
 package com.example.mileage.domain.review;
 
 
+import com.example.mileage.domain.common.BaseEntity;
 import com.example.mileage.domain.place.Place;
 import com.example.mileage.domain.user.User;
 import lombok.AccessLevel;
@@ -15,7 +16,7 @@ import java.util.*;
 @Getter
 @Table(name = "REVIEWS")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Review {
+public class Review extends BaseEntity {
 
     @Id
     @Column(name = "review_id")
@@ -36,20 +37,16 @@ public class Review {
     private User user;
 
     @ElementCollection
-    @CollectionTable(name = "IMAGES", joinColumns = @JoinColumn(name = "review_id"))
-    private List<String> imageIds = new ArrayList<>();
+    @CollectionTable(name = "ATTACHED_PHOTOIDS", joinColumns = @JoinColumn(name = "review_id"))
+    private List<String> attachedPhotoIds = new ArrayList<>();
 
     @Builder
-    public Review(String id, String content, List<String> imageIds, Place place, User user) {
+    public Review(String id, String content, List<String> attachedPhotoIds, Place place, User user) {
         this.id = id;
         this.content = content;
-        this.imageIds = imageIds;
+        this.attachedPhotoIds = attachedPhotoIds;
         this.place = place;
         this.user = user;
-    }
-
-    @PrePersist
-    private void initReviewType() {
         this.reviewType = ReviewType.NORMAL;
     }
 
@@ -57,9 +54,13 @@ public class Review {
         this.reviewType = ReviewType.FIRST;
     }
 
-    public void setContentAndImageIds(String content, List<String> imageIds) {
+    public boolean checkReviewOwner(String userId) {
+        return this.user.getId().equals(userId);
+    }
+
+    public void setContentAndImageIds(String content, List<String> attachedPhotoIds) {
         this.content = content;
-        this.imageIds = imageIds;
+        this.attachedPhotoIds = attachedPhotoIds;
     }
 
 

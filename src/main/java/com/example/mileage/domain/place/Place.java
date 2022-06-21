@@ -20,8 +20,12 @@ public class Place {
     @Column(name = "place_id")
     private String id;
 
-    public Place(String id) {
+    @Column(nullable = false)
+    private String placeName;
+
+    public Place(String id, String placeName) {
         this.id = id;
+        this.placeName = placeName;
     }
 
 }

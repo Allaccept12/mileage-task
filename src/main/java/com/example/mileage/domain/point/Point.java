@@ -12,39 +12,35 @@ import java.util.Objects;
 @Embeddable
 public class Point {
 
-    private int value;
+    private int contentPoint;
+    private int bonusPoint;
 
     protected Point() {
-        this.value = 0;
+        this.contentPoint = 0;
+        this.bonusPoint = 0;
     }
 
     public void plusOnePoint() {
-        this.value += 1;
+        this.contentPoint += 1;
     }
 
     public void minusOnePoint() {
-        this.value -= 1;
+        this.contentPoint -= 1;
+    }
+
+    public void plusBonusPoint() {
+        this.bonusPoint += 1;
+    }
+
+    public void minusBonusPoint() {
+        this.bonusPoint -= 1;
     }
 
     public boolean verifyPointWhenZero() {
-        return this.value != 0;
+        return this.contentPoint != 0;
     }
 
     public static Point getInstance() {
         return new Point();
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Point point = (Point) o;
-        return value == point.value;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(value);
-    }
-
 }

@@ -7,9 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PointRecordRepository extends JpaRepository<PointRecord, Long> {
 
-    @Query("select p.point from PointRecord p where p.user.id =:userId and p.review.place.id =:placeId")
-    List<Point> findPointByUserIdAndPlaceId(@Param("userId") String userId ,@Param("placeId") String placeId);
+    List<PointRecord> findByUserIdAndPlaceId(String userId, String placeId);
+
+    Optional<List<PointRecord>> findByUserIdOrderByCreatedDateDesc(String userId);
 }

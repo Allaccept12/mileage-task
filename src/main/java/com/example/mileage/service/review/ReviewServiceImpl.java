@@ -2,9 +2,9 @@ package com.example.mileage.service.review;
 
 import com.example.mileage.domain.place.Place;
 import com.example.mileage.domain.review.Review;
-import com.example.mileage.domain.review.ReviewType;
 import com.example.mileage.domain.user.User;
 import com.example.mileage.dto.request.ReviewEventDto;
+import com.example.mileage.exception.UserNotHaveReviewPermissionException;
 import com.example.mileage.exception.NotFoundReviewException;
 import com.example.mileage.repository.reivew.ReviewRepository;
 import com.example.mileage.service.place.PlaceService;
@@ -42,23 +42,32 @@ public class ReviewServiceImpl implements ReviewService{
             review.setReviewTypeForFirst();
         }
         reviewRepository.save(review);
-        pointRecordService.saveCreationPointRecord(userEntity, review);
+        pointRecordService.saveCreationPointRecord(userEntity, review, placeEntity);
     }
 
     @Transactional
     public void modifyReview(ReviewEventDto modDto) {
         Review reviewEntity = findReviewByReviewId(modDto.getReviewId());
+        Place placeEntity = placeService.findPlaceByPlaceId(modDto.getPlaceId());
         User userEntity = userService.findUserByUserId(modDto.getUserId());
-        pointRecordService.saveModifyingPointRecord(modDto,userEntity,reviewEntity);
+        verifyReviewOwner(reviewEntity, userEntity);
+        pointRecordService.saveModifyingPointRecord(modDto,userEntity,reviewEntity,placeEntity);
         reviewEntity.setContentAndImageIds(modDto.getContent(), modDto.getAttachedPhotoIds());
     }
 
     @Transactional
     public void deleteReview(ReviewEventDto deleteDto) {
         Review reviewEntity = findReviewByReviewId(deleteDto.getReviewId());
+        Place placeEntity = placeService.findPlaceByPlaceId(deleteDto.getPlaceId());
         User userEntity = userService.findUserByUserId(deleteDto.getUserId());
-        pointRecordService.saveDeletingPointRecord(deleteDto,userEntity,reviewEntity);
+        verifyReviewOwner(reviewEntity, userEntity);
+        pointRecordService.saveDeletingPointRecord(userEntity,reviewEntity,placeEntity);
         reviewRepository.delete(reviewEntity);
+    }
+
+    @Transactional(readOnly = true)
+    public boolean existReviewByPlaceIdAndUserId(String userId, String placeId) {
+        return reviewRepository.existsByPlaceIdAndUserId(placeId, userId);
     }
 
     @Override
@@ -68,17 +77,17 @@ public class ReviewServiceImpl implements ReviewService{
 
     }
 
-    @Override
-    public boolean existReviewByUserIdAndPlaceId(String userId, String placeId) {
-        return reviewRepository.existsByPlaceIdAndUserId(userId, placeId);
+    private void verifyReviewOwner(Review reviewEntity, User userEntity) {
+        if (!reviewEntity.checkReviewOwner(userEntity.getId())) {
+            throw new UserNotHaveReviewPermissionException();
+        }
     }
-
 
     private Review getReview(ReviewEventDto addDto, User userEntity, Place placeEntity) {
         return Review.builder()
                 .id(addDto.getReviewId())
                 .content(addDto.getContent())
-                .imageIds(addDto.getAttachedPhotoIds())
+                .attachedPhotoIds(addDto.getAttachedPhotoIds())
                 .place(placeEntity)
                 .user(userEntity)
                 .build();
