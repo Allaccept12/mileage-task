@@ -43,6 +43,9 @@ spring:
     properties:
       format_sql: true
       default_batch_fetch_size: 1000
+  sql:
+    init:
+      mode: never
 
   datasource:
     driver-class-name: org.h2.Driver
