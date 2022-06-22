@@ -71,7 +71,7 @@ public class PointRecordServiceImpl implements PointRecordService{
 
     private int getTotalBonusPoint(User userEntity, Place placeEntity) {
         List<PointRecord> recentRecordList = pointRecordRepository
-                .findByPlaceIdAndUserId(userEntity.getId(), placeEntity.getId())
+                .findByPlaceIdAndUserId(placeEntity.getId(), userEntity.getId())
                 .orElseThrow(() -> new NotFoundReviewRecordException(ErrorCode.NOT_FOUND_REVIEW_RECORD));
         return recentRecordList.stream()
                 .mapToInt(data -> data.getPoint().getBonusPoint())
