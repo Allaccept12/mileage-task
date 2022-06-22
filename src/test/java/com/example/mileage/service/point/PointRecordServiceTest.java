@@ -18,11 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willReturn;
-import static org.mockito.Mockito.doReturn;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -70,7 +66,7 @@ class PointRecordServiceTest {
         PointRecord pointRecord1 = getPointRecord(userEntity, placeEntity, point);
         PointRecord pointRecord2 = getPointRecord(userEntity, placeEntity, point);
         //mock
-        given(pointRecordRepository.findByUserIdAndPlaceId(userEntity.getId(),placeEntity.getId()))
+        given(pointRecordRepository.findByPlaceIdAndUserId(placeEntity.getId(),userEntity.getId()))
                 .willReturn(Optional.of(List.of(pointRecord1,pointRecord2)));
         given(pointEarnService.earnModifyingReviewPoint(modDto,reviewEntity,true))
                 .willReturn(point);
@@ -91,7 +87,7 @@ class PointRecordServiceTest {
         PointRecord pointRecord1 = getPointRecord(userEntity, placeEntity, point);
         PointRecord pointRecord2 = getPointRecord(userEntity, placeEntity, point);
         //mock
-        given(pointRecordRepository.findByUserIdAndPlaceId(userEntity.getId(),placeEntity.getId()))
+        given(pointRecordRepository.findByPlaceIdAndUserId(placeEntity.getId(),userEntity.getId()))
                 .willReturn(Optional.of(List.of(pointRecord1,pointRecord2)));
         given(pointEarnService.decreaseReviewPoint(reviewEntity,true))
                 .willReturn(point);

@@ -1,17 +1,10 @@
 package com.example.mileage.repository.reivew;
 
 import com.example.mileage.InitializeAfterEach;
-import com.example.mileage.domain.point.PointRecord;
-import com.example.mileage.repository.place.PlaceRepository;
-import com.example.mileage.repository.record.PointRecordRepository;
-import com.example.mileage.repository.user.UserRepository;
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 

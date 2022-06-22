@@ -5,24 +5,18 @@ import com.example.mileage.domain.review.Review;
 import com.example.mileage.domain.review.ReviewType;
 import com.example.mileage.domain.user.User;
 import com.example.mileage.dto.request.ReviewEventDto;
-import com.example.mileage.exception.ErrorCode;
-import com.example.mileage.exception.exceptions.NotFoundReviewException;
 import com.example.mileage.exception.exceptions.UserNotHaveReviewPermissionException;
 import com.example.mileage.repository.place.PlaceRepository;
 import com.example.mileage.repository.reivew.ReviewRepository;
 import com.example.mileage.repository.user.UserRepository;
-import com.example.mileage.service.place.PlaceService;
 import com.example.mileage.service.place.PlaceServiceImpl;
-import com.example.mileage.service.point.PointRecordService;
 import com.example.mileage.service.point.PointRecordServiceImpl;
-import com.example.mileage.service.user.UserService;
 import com.example.mileage.service.user.UserServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
@@ -30,10 +24,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.verify;
 
 
 @ExtendWith(MockitoExtension.class)

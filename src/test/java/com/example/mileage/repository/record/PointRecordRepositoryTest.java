@@ -2,15 +2,14 @@ package com.example.mileage.repository.record;
 
 import com.example.mileage.InitializeAfterEach;
 import com.example.mileage.domain.point.PointRecord;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PointRecordRepositoryTest extends InitializeAfterEach {
 
@@ -22,7 +21,7 @@ class PointRecordRepositoryTest extends InitializeAfterEach {
         String userId = "3ede0ef2-92b7-4817-a5f3-0c575361f741";
         String placeId = "2e4baf1c-5acb-4efb-a1af-eddada31b001";
         // when
-        Optional<List<PointRecord>> resultList = pointRecordRepository.findByUserIdAndPlaceId(userId, placeId);
+        Optional<List<PointRecord>> resultList = pointRecordRepository.findByPlaceIdAndUserId( placeId,userId);
         // then
         assertTrue(resultList.isPresent());
         assertEquals(1,resultList.get().size());
