@@ -47,10 +47,10 @@
 6. 리뷰를 삭제하고 포인트 조회를 해본다. 
 
 ### 과제 하면서 공부한 내용 
-http://wiki.gurubee.net/pages/viewpage.action?pageId=26740390 
-https://4whomtbts.tistory.com/129
-https://imnkj.tistory.com/49
-https://brunch.co.kr/@springboot/614
+- http://wiki.gurubee.net/pages/viewpage.action?pageId=26740390 
+- https://4whomtbts.tistory.com/129
+- https://imnkj.tistory.com/49
+- https://brunch.co.kr/@springboot/614
 
 긴 글 봐주셔서 감사합니다. 
 
