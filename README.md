@@ -36,9 +36,9 @@
 ## 실행
 
 ### [DDL 파일](https://github.com/Allaccept12/mileage-task/blob/main/src/main/resources/schema.sql)
-### [API 문서](https://melted-magician-d9c.notion.site/API-6690238ee6fc45bab4cdfc966a3925af)
+### [더미데이터 파일](https://github.com/Allaccept12/mileage-task/blob/main/src/main/resources/data.sql)
 
-###[더미데이터](https://github.com/Allaccept12/mileage-task/blob/main/src/main/resources/data.sql)
+### [API 문서](https://melted-magician-d9c.notion.site/API-6690238ee6fc45bab4cdfc966a3925af)
 1. 사용자를 생성 한다. - 더미데이터가 있습니다
 2. 장소를 생성 한다. - 더미데이터가 있습니다  
 3. API 문서에 맞게 리뷰 작성 요청을 보낸다. 
