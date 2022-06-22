@@ -4,8 +4,9 @@ import com.example.mileage.domain.place.Place;
 import com.example.mileage.domain.review.Review;
 import com.example.mileage.domain.user.User;
 import com.example.mileage.dto.request.ReviewEventDto;
-import com.example.mileage.exception.UserNotHaveReviewPermissionException;
-import com.example.mileage.exception.NotFoundReviewException;
+import com.example.mileage.exception.exceptions.UserNotHaveReviewPermissionException;
+import com.example.mileage.exception.exceptions.NotFoundReviewException;
+import com.example.mileage.exception.ErrorCode;
 import com.example.mileage.repository.reivew.ReviewRepository;
 import com.example.mileage.service.place.PlaceService;
 import com.example.mileage.service.point.PointRecordService;
@@ -33,7 +34,6 @@ public class ReviewServiceImpl implements ReviewService{
      */
     @Transactional
     public void createReview(ReviewEventDto addDto) {
-        //사용자가 이미 리뷰를 달았는지 안달았는지 확인 - 컨트롤러에서
         User userEntity = userService.findUserByUserId(addDto.getUserId());
         Place placeEntity = placeService.findPlaceByPlaceId(addDto.getPlaceId());
         Review review = getReview(addDto, userEntity, placeEntity);
@@ -66,20 +66,20 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Transactional(readOnly = true)
-    public boolean existReviewByPlaceIdAndUserId(String userId, String placeId) {
+    public boolean existReviewByPlaceIdAndUserId(String placeId,String userId) {
         return reviewRepository.existsByPlaceIdAndUserId(placeId, userId);
     }
 
     @Override
     public Review findReviewByReviewId(String reviewId) {
         return reviewRepository.findById(reviewId)
-                .orElseThrow(NotFoundReviewException::new);
+                .orElseThrow(() -> new NotFoundReviewException(ErrorCode.NOT_FOUND_REVIEW));
 
     }
 
     private void verifyReviewOwner(Review reviewEntity, User userEntity) {
         if (!reviewEntity.checkReviewOwner(userEntity.getId())) {
-            throw new UserNotHaveReviewPermissionException();
+            throw new UserNotHaveReviewPermissionException(ErrorCode.USER_NOT_HAVE_REVIEW_PERMISSION);
         }
     }
 

@@ -2,7 +2,6 @@ package com.example.mileage.dto.response;
 
 
 import com.example.mileage.domain.point.PointRecord;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;

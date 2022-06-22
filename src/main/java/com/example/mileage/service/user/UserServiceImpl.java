@@ -4,15 +4,13 @@ package com.example.mileage.service.user;
 import com.example.mileage.domain.user.User;
 import com.example.mileage.dto.request.UserRequestDto;
 import com.example.mileage.dto.response.PointRecordResponseDto;
-import com.example.mileage.exception.NotFoundUserException;
-import com.example.mileage.repository.record.PointRecordRepository;
+import com.example.mileage.exception.exceptions.NotFoundUserException;
+import com.example.mileage.exception.ErrorCode;
 import com.example.mileage.repository.user.UserRepository;
 import com.example.mileage.service.point.PointRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.Table;
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +37,6 @@ public class UserServiceImpl implements UserService{
     @Override
     public User findUserByUserId(String userId) {
         return userRepository.findById(userId)
-                .orElseThrow(NotFoundUserException::new);
+                .orElseThrow(() -> new NotFoundUserException(ErrorCode.NOT_FOUND_USER));
     }
 }

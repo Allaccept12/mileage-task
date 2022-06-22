@@ -1,7 +1,8 @@
 package com.example.mileage.service.place;
 
 import com.example.mileage.domain.place.Place;
-import com.example.mileage.exception.NotFoundPlaceException;
+import com.example.mileage.exception.ErrorCode;
+import com.example.mileage.exception.exceptions.NotFoundPlaceException;
 import com.example.mileage.repository.place.PlaceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,6 @@ public class PlaceServiceImpl implements PlaceService{
     @Override
     public Place findPlaceByPlaceId(String placeId) {
         return placeRepository.findById(placeId)
-                .orElseThrow(NotFoundPlaceException::new);
+                .orElseThrow(() -> new NotFoundPlaceException(ErrorCode.NOT_FOUND_PLACE));
     }
 }

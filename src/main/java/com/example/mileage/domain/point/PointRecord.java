@@ -3,7 +3,6 @@ package com.example.mileage.domain.point;
 
 import com.example.mileage.domain.common.BaseEntity;
 import com.example.mileage.domain.place.Place;
-import com.example.mileage.domain.review.Review;
 import com.example.mileage.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -11,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Getter

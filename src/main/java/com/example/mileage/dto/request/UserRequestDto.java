@@ -2,7 +2,6 @@ package com.example.mileage.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;

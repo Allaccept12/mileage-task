@@ -1,18 +1,52 @@
-
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/triple-mileage?useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost/triple-mileage?characterEncoding=utf8
     username: root
     password: 1234
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     properties:
       hibernate:
         format_sql: true
         default_batch_fetch_size: 1000
+    database: mysql
+    open-in-view: false
+
+  sql:
+    init:
+      schema-locations: classpath:schema.sql
+      mode: always
+      data-locations: classpath:data.sql
+
 logging:
   level:
     org.hibernate.SQL: debug
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: test
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database: h2
+    generate-ddl: off
+    hibernate:
+      ddl-auto: create
+
+    properties:
+      format_sql: true
+      default_batch_fetch_size: 1000
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;MODE=MySQL;
+    username: SA
+    password:
+

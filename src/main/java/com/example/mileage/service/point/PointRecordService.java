@@ -6,8 +6,6 @@ import com.example.mileage.domain.user.User;
 import com.example.mileage.dto.request.ReviewEventDto;
 import com.example.mileage.dto.response.PointRecordResponseDto;
 
-import java.util.List;
-
 public interface PointRecordService {
 
     void saveCreationPointRecord(User user, Review reviewEntity, Place placeEntity);

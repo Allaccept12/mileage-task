@@ -3,7 +3,6 @@ package com.example.mileage.controller;
 
 import com.example.mileage.dto.request.UserRequestDto;
 import com.example.mileage.dto.response.PointRecordResponseDto;
-import com.example.mileage.service.point.PointRecordService;
 import com.example.mileage.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +20,7 @@ public class UserController {
     @PostMapping("/api/user/register")
     public ResponseEntity<String> registerUser(@Valid @RequestBody UserRequestDto userDto) {
         userService.registerUser(userDto);
-        return ResponseEntity.status(HttpStatus.OK).body("성공");
+        return ResponseEntity.status(HttpStatus.OK).body("유저 테스트 회원가입 성공");
     }
 
     /**

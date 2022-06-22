@@ -37,7 +37,7 @@ public class Review extends BaseEntity {
     private User user;
 
     @ElementCollection
-    @CollectionTable(name = "ATTACHED_PHOTOIDS", joinColumns = @JoinColumn(name = "review_id"))
+    @CollectionTable(name = "ATTACHED_PHOTO_IDS", joinColumns = @JoinColumn(name = "review_id"))
     private List<String> attachedPhotoIds = new ArrayList<>();
 
     @Builder

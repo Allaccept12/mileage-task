@@ -8,7 +8,8 @@ import com.example.mileage.domain.user.User;
 import com.example.mileage.dto.request.ReviewEventDto;
 import com.example.mileage.dto.response.PointRecordResponseDto;
 import com.example.mileage.dto.response.PointRecordResponseDto.PointDto;
-import com.example.mileage.exception.NotFoundReviewRecordException;
+import com.example.mileage.exception.exceptions.NotFoundReviewRecordException;
+import com.example.mileage.exception.ErrorCode;
 import com.example.mileage.repository.record.PointRecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -70,7 +71,8 @@ public class PointRecordServiceImpl implements PointRecordService{
 
     private int getTotalBonusPoint(User userEntity, Place placeEntity) {
         List<PointRecord> recentRecordList = pointRecordRepository
-                .findByUserIdAndPlaceId(userEntity.getId(), placeEntity.getId());
+                .findByPlaceIdAndUserId(userEntity.getId(), placeEntity.getId())
+                .orElseThrow(() -> new NotFoundReviewRecordException(ErrorCode.NOT_FOUND_REVIEW_RECORD));
         return recentRecordList.stream()
                 .mapToInt(data -> data.getPoint().getBonusPoint())
                 .sum();
@@ -78,7 +80,7 @@ public class PointRecordServiceImpl implements PointRecordService{
 
     private List<PointRecord> getAllPointRecords(User user) {
         return pointRecordRepository.findByUserIdOrderByCreatedDateDesc(user.getId())
-                .orElseThrow(NotFoundReviewRecordException::new);
+                .orElseThrow(() -> new NotFoundReviewRecordException(ErrorCode.NOT_FOUND_REVIEW_RECORD));
     }
 
     private PointRecord getPointRecord(User userEntity, Place placeEntity, Point point) {

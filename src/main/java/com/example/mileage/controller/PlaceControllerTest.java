@@ -20,6 +20,6 @@ public class PlaceControllerTest {
                                               @PathVariable("placeName") String placeName) {
         Place place = new Place(placeId, placeName);
         placeRepository.save(place);
-        return ResponseEntity.ok().body("성공");
+        return ResponseEntity.ok().body("테스트 PLACE 만들기 성공");
     }
 }

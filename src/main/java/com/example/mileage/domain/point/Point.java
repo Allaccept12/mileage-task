@@ -1,12 +1,9 @@
 package com.example.mileage.domain.point;
 
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
-import java.util.Objects;
 
 @Getter
 @Embeddable
