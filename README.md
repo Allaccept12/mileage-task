@@ -34,6 +34,6 @@
 ***포인트 부여의 비즈니스 로직이 아쉬웠다. If와 Else로 딱딱한 로직을 쓰지 않고 더 나은 방법을 찾고자 했으나 포인트 부여에 대한 Domain 설계를 다른 방식으로 접근 해야할지 또 다른 방법이 있을지에 대해서 고민하는 시간이 많이 길었던것 같다. SOLID를 준수하여 개발 하고자 했으나 어떻게 요구사항에 맞게 포인트 증감을 시킬지 조금 더 고민을 해봐야 할것 같다.***
 
 ## 실행
-[API 문서](https://melted-magician-d9c.notion.site/API-6690238ee6fc45bab4cdfc966a3925af)
+### [API 문서](https://melted-magician-d9c.notion.site/API-6690238ee6fc45bab4cdfc966a3925af)
 
 
